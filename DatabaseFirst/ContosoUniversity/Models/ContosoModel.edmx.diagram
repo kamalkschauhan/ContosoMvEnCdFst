@@ -4,18 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98f9beec57634c36887dbebb8b76efc0" Name="Diagram1">
-        <EntityTypeShape EntityType="ContosoUniversityModel.Course" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContosoUniversityModel.Department" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContosoUniversityModel.Enrollment" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContosoUniversityModel.OfficeAssignment" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ContosoUniversityModel.Person" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Course_dbo_Department_DepartmentID" ManuallyRouted="false" />
-        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Enrollment_dbo_Course_CourseID" ManuallyRouted="false" />
-        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Department_dbo_Person_InstructorID" ManuallyRouted="false" />
-        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_Enrollment_dbo_Person_StudentID" ManuallyRouted="false" />
-        <AssociationConnector Association="ContosoUniversityModel.FK_dbo_OfficeAssignment_dbo_Person_InstructorID" ManuallyRouted="false" />
-        <AssociationConnector Association="ContosoUniversityModel.CourseInstructor" ManuallyRouted="false" />
+      <Diagram DiagramId="39f72f1bbf734c07b9659c20d41c984c" Name="Diagram1">
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.Course" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.Department" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.Enrollment" Width="1.5" PointX="7.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.OfficeAssignment" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ContosoUniversityDataModel.Person" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="ContosoUniversityDataModel.FK_dbo_Course_dbo_Department_DepartmentID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityDataModel.FK_dbo_Enrollment_dbo_Course_CourseID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityDataModel.FK_dbo_Department_dbo_Person_InstructorID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityDataModel.FK_dbo_Enrollment_dbo_Person_StudentID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityDataModel.FK_dbo_OfficeAssignment_dbo_Person_InstructorID" ManuallyRouted="false" />
+        <AssociationConnector Association="ContosoUniversityDataModel.CourseInstructor" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

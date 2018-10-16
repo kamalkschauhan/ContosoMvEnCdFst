@@ -13,10 +13,10 @@ namespace ContosoUniversity.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ContosoUniversityEntities : DbContext
+    public partial class ContosoUniversityDataEntities : DbContext
     {
-        public ContosoUniversityEntities()
-            : base("name=ContosoUniversityEntities")
+        public ContosoUniversityDataEntities()
+            : base("name=ContosoUniversityDataEntities")
         {
         }
     
@@ -25,6 +25,7 @@ namespace ContosoUniversity.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Enrollment> Enrollments { get; set; }
