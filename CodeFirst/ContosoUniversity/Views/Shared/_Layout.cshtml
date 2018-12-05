@@ -6,6 +6,18 @@
     <title>@ViewBag.Title - Contoso University</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+    // Check if the localStorage object exists
+        if (localStorage) {
+            // Store data
+            localStorage.setItem("first_name", "Peter");
+
+            // Retrieve data
+            alert("Hi, " + localStorage.getItem("first_name"));
+        } else {
+            alert("Sorry, your browser do not support local storage.");
+        }
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,6 +39,10 @@
                     <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
                     <li>@Html.ActionLink("Departments", "Index", "Department")</li>
                 </ul>
+            </div>
+            //INITIATE FREE TEXT SEARCH USING KNOCK-OUT
+            <div class="navbar-collapse collapse">
+                @Html.TextBox("txtSearch")
             </div>
         </div>
     </div>
