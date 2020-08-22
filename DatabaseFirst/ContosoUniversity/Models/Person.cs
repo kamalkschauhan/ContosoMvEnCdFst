@@ -11,7 +11,8 @@ namespace ContosoUniversity.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,8 +26,14 @@ namespace ContosoUniversity.Models
         public int ID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public Nullable<System.DateTime> HireDate { get; set; }
-        public Nullable<System.DateTime> EnrollmentDate { get; set; }
+        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hire Date")] public Nullable<System.DateTime> HireDate { get; set; }
+        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Enrollment Date")] public Nullable<System.DateTime> EnrollmentDate { get; set; }
         public string Discriminator { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,7 +12,7 @@ namespace ContosoUniversity.Controllers
 {
     public class PersonsController : Controller
     {
-        private ContosoUniversityDataEntities db = new ContosoUniversityDataEntities();
+        private readonly ContosoUniversityDataEntities db = new ContosoUniversityDataEntities();
 
         // GET: Persons
         public ActionResult Index()

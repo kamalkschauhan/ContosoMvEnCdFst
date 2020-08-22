@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DatabaseFirst/ContosoUniversity/obj
+/DatabaseFirst/ContosoUniversity/bin
+/DatabaseFirst/ContosoUniversity.Tests/obj
+/DatabaseFirst/ContosoUniversity.Tests/bin
+/DatabaseFirst/packages
