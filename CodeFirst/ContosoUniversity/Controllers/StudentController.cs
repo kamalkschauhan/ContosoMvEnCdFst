@@ -9,22 +9,24 @@ namespace ContosoUniversity.Controllers
 {
     public class StudentController : Controller
     {
-        private SchoolContext db = new SchoolContext();
+        private readonly SchoolContext db = new SchoolContext();
 
         // GET: Students
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await db.Students.ToListAsync());
+            return View(await db.Students.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Students/Details/5
+        [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await db.Students.FindAsync(id).ConfigureAwait(false);
             if (student == null)
             {
                 return HttpNotFound();
@@ -33,6 +35,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Students/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -48,7 +51,7 @@ namespace ContosoUniversity.Controllers
             if (ModelState.IsValid)
             {
                 db.Students.Add(student);
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction("Index");
             }
 
@@ -56,13 +59,14 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Students/Edit/5
+        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await db.Students.FindAsync(id).ConfigureAwait(false);
             if (student == null)
             {
                 return HttpNotFound();
@@ -80,20 +84,22 @@ namespace ContosoUniversity.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction("Index");
             }
             return View(student);
         }
 
         // GET: Students/Delete/5
+        [HttpPut]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
+            Student student = await db.Students.FindAsync(id).ConfigureAwait(false);
             if (student == null)
             {
                 return HttpNotFound();
@@ -106,9 +112,9 @@ namespace ContosoUniversity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Student student = await db.Students.FindAsync(id);
+            Student student = await db.Students.FindAsync(id).ConfigureAwait(false);
             db.Students.Remove(student);
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction("Index");
         }
 

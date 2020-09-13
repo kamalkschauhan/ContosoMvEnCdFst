@@ -15,6 +15,7 @@ namespace ContosoUniversity.Controllers
         private readonly ContosoUniversityDataEntities db = new ContosoUniversityDataEntities();
 
         // GET: Persons
+        [HttpGet]
         public ActionResult Index()
         {
             var people = db.People.Include(p => p.OfficeAssignment);
@@ -22,6 +23,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Persons/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Persons/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.ID = new SelectList(db.OfficeAssignments, "InstructorID", "Location");
@@ -62,6 +65,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Persons/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +99,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Persons/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)

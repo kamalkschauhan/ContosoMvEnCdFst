@@ -11,9 +11,10 @@ namespace ContosoUniversity.Controllers
 {
     public class CourseController : Controller
     {
-        private SchoolContext db = new SchoolContext();
+        private readonly SchoolContext db = new SchoolContext();
 
         // GET: Course
+        [HttpGet]
         public ActionResult Index(int? SelectedDepartment)
         {
             var departments = db.Departments.OrderBy(q => q.Name).ToList();
@@ -29,6 +30,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Course/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -43,7 +45,7 @@ namespace ContosoUniversity.Controllers
             return View(course);
         }
 
-
+        [HttpGet]
         public ActionResult Create()
         {
             PopulateDepartmentsDropDownList();
@@ -72,6 +74,7 @@ namespace ContosoUniversity.Controllers
             return View(course);
         }
 
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -125,6 +128,7 @@ namespace ContosoUniversity.Controllers
 
 
         // GET: Course/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -150,12 +154,14 @@ namespace ContosoUniversity.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public ActionResult UpdateCourseCredits()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPut]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateCourseCredits(int? multiplier)
         {
             if (multiplier != null)

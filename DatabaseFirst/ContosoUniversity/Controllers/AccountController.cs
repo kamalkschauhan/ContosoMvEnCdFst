@@ -54,6 +54,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -64,8 +65,8 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -75,7 +76,7 @@ namespace ContosoUniversity.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false).ConfigureAwait(false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -83,7 +84,9 @@ namespace ContosoUniversity.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
+#pragma warning disable IDE0037 // Use inferred member name
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+#pragma warning restore IDE0037 // Use inferred member name
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -93,11 +96,12 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/VerifyCode
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManager.HasBeenVerifiedAsync().ConfigureAwait(false))
             {
                 return View("Error");
             }
@@ -107,8 +111,8 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/VerifyCode
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
@@ -120,7 +124,7 @@ namespace ContosoUniversity.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser).ConfigureAwait(false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -136,6 +140,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/Register
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -145,17 +150,17 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user, model.Password).ConfigureAwait(false);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false).ConfigureAwait(false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -174,6 +179,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/ConfirmEmail
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -181,12 +187,13 @@ namespace ContosoUniversity.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var result = await UserManager.ConfirmEmailAsync(userId, code).ConfigureAwait(false);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
         // GET: /Account/ForgotPassword
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
@@ -197,13 +204,12 @@ namespace ContosoUniversity.Controllers
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await UserManager.FindByNameAsync(model.Email).ConfigureAwait(false);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id).ConfigureAwait(false)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -223,6 +229,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
@@ -231,6 +238,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/ResetPassword
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
@@ -240,21 +248,21 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/ResetPassword
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.Email).ConfigureAwait(false);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -265,7 +273,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
+        [HttpGet]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
@@ -275,7 +283,6 @@ namespace ContosoUniversity.Controllers
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
@@ -284,15 +291,16 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/SendCode
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            var userId = await SignInManager.GetVerifiedUserIdAsync().ConfigureAwait(false);
             if (userId == null)
             {
                 return View("Error");
             }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId).ConfigureAwait(false);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -300,8 +308,8 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/SendCode
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
@@ -310,26 +318,31 @@ namespace ContosoUniversity.Controllers
             }
 
             // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider).ConfigureAwait(false))
             {
                 return View("Error");
             }
+#pragma warning disable IDE0037 // Use inferred member name
+#pragma warning disable IDE0037 // Use inferred member name
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+#pragma warning restore IDE0037 // Use inferred member name
+#pragma warning restore IDE0037 // Use inferred member name
         }
 
         //
         // GET: /Account/ExternalLoginCallback
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync().ConfigureAwait(false);
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false).ConfigureAwait(false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -350,8 +363,8 @@ namespace ContosoUniversity.Controllers
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -362,19 +375,19 @@ namespace ContosoUniversity.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = await AuthenticationManager.GetExternalLoginInfoAsync().ConfigureAwait(false);
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
+                var result = await UserManager.CreateAsync(user).ConfigureAwait(false);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login).ConfigureAwait(false);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false).ConfigureAwait(false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -397,6 +410,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
