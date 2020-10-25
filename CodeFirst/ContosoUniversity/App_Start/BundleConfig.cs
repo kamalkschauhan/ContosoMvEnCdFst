@@ -3,7 +3,7 @@ using System.Web.Optimization;
 
 namespace ContosoUniversity
 {
-    public static class BundleConfig
+    public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)

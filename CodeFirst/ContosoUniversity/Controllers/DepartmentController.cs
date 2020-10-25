@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,18 +13,16 @@ namespace ContosoUniversity.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly SchoolContext db = new SchoolContext();
+        private SchoolContext db = new SchoolContext();
 
         // GET: Department
-        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var departments = db.Departments.Include(d => d.Administrator);
-            return View(await departments.ToListAsync().ConfigureAwait(false));
+            return View(await departments.ToListAsync());
         }
 
         // GET: Department/Details/5
-        [HttpGet]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,7 +35,7 @@ namespace ContosoUniversity.Controllers
 
             // Create and execute raw SQL query.
             string query = "SELECT * FROM Department WHERE DepartmentID = @p0";
-            Department department = await db.Departments.SqlQuery(query, id).SingleOrDefaultAsync().ConfigureAwait(false);
+            Department department = await db.Departments.SqlQuery(query, id).SingleOrDefaultAsync();
 
             if (department == null)
             {
@@ -48,7 +45,6 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department/Create
-        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName");
@@ -65,7 +61,7 @@ namespace ContosoUniversity.Controllers
             if (ModelState.IsValid)
             {
                 db.Departments.Add(department);
-                await db.SaveChangesAsync().ConfigureAwait(false);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -74,14 +70,13 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department/Edit/5
-        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id).ConfigureAwait(false);
+            Department department = await db.Departments.FindAsync(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -104,7 +99,7 @@ namespace ContosoUniversity.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var departmentToUpdate = await db.Departments.FindAsync(id).ConfigureAwait(false);
+            var departmentToUpdate = await db.Departments.FindAsync(id);
             if (departmentToUpdate == null)
             {
                 Department deletedDepartment = new Department();
@@ -120,7 +115,7 @@ namespace ContosoUniversity.Controllers
                 try
                 {
                     db.Entry(departmentToUpdate).OriginalValues["RowVersion"] = rowVersion;
-                    await db.SaveChangesAsync().ConfigureAwait(false);
+                    await db.SaveChangesAsync();
 
                     return RedirectToAction("Index");
                 }
@@ -143,10 +138,10 @@ namespace ContosoUniversity.Controllers
                                 + databaseValues.Name);
                         if (databaseValues.Budget != clientValues.Budget)
                             ModelState.AddModelError("Budget", "Current value: "
-                                + string.Format(CultureInfo.CurrentCulture.NumberFormat, "{0:c}", databaseValues.Budget));
+                                + String.Format("{0:c}", databaseValues.Budget));
                         if (databaseValues.StartDate != clientValues.StartDate)
                             ModelState.AddModelError("StartDate", "Current value: "
-                                + string.Format(CultureInfo.CurrentCulture.NumberFormat, "{0:d}", databaseValues.StartDate));
+                                + String.Format("{0:d}", databaseValues.StartDate));
                         if (databaseValues.InstructorID != clientValues.InstructorID)
                             ModelState.AddModelError("InstructorID", "Current value: "
                                 + db.Instructors.Find(databaseValues.InstructorID).FullName);
@@ -169,14 +164,13 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Department/Delete/5
-        [HttpGet]
         public async Task<ActionResult> Delete(int? id, bool? concurrencyError)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Department department = await db.Departments.FindAsync(id).ConfigureAwait(false);
+            Department department = await db.Departments.FindAsync(id);
             if (department == null)
             {
                 if (concurrencyError.GetValueOrDefault())
@@ -207,7 +201,7 @@ namespace ContosoUniversity.Controllers
             try
             {
                 db.Entry(department).State = EntityState.Deleted;
-                await db.SaveChangesAsync().ConfigureAwait(false);
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             catch (DbUpdateConcurrencyException)

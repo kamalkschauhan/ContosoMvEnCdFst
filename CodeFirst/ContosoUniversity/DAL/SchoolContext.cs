@@ -1,5 +1,4 @@
 ﻿using ContosoUniversity.Models;
-using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -17,10 +16,6 @@ namespace ContosoUniversity.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //if (modelBuilder == null)
-            //{
-            //    throw new ArgumentNullException(nameof(modelBuilder));
-            //}
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<Course>()

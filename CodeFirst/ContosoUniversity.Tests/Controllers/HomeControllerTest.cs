@@ -16,41 +16,40 @@ namespace ContosoUniversity.Tests.Controllers
         public void Index()
         {
             // Arrange
-            using (HomeController controller = new HomeController())
-            {
-                // Act
-                //ViewResult result = controller.Index() as ViewResult;
-                //ActionResult result = controller.Index() as ActionResult;
+            HomeController controller = new HomeController();
 
-                // Assert
-                //Assert.IsNotNull(result);
-            }
+            // Act
+            //ViewResult result = controller.Index() as ViewResult;
+            //ActionResult result = controller.Index() as ActionResult;
+
+            // Assert
+            //Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public void About()
         {
-            using (HomeController controller = new HomeController())
-            {
-                // Act
-                ViewResult result = controller.About() as ViewResult;
+            // Arrange
+            HomeController controller = new HomeController();
 
-                // Assert
-                Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-            }
+            // Act
+            ViewResult result = controller.About() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
         [TestMethod]
         public void Contact()
         {
-            using (HomeController controller = new HomeController())
-            {
-                // Act
-                ViewResult result = controller.Contact() as ViewResult;
+            // Arrange
+            HomeController controller = new HomeController();
 
-                // Assert
-                Assert.IsNotNull(result);
-            }
+            // Act
+            ViewResult result = controller.Contact() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using ContosoUniversity.Models;
-using System.Globalization;
 
 namespace ContosoUniversity.DAL
 {
@@ -14,244 +13,60 @@ namespace ContosoUniversity.DAL
         {
             var students = new List<Student>
             {
-                new Student{
-                    LastName="Alexander",
-                    FirstMidName="Carson",
-                    EnrollmentDate=DateTime.Parse("2005-09-01", CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Alonso",
-                    FirstMidName="Meredith",
-                    EnrollmentDate=DateTime.Parse("2002-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Anand",
-                    FirstMidName="Arturo",
-                    EnrollmentDate=DateTime.Parse("2003-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Barzdukas",
-                    FirstMidName="Gytis",
-                    EnrollmentDate=DateTime.Parse("2002-09-01",         
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Li",
-                    FirstMidName="Yan",
-                    EnrollmentDate=DateTime.Parse("2002-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Justice",
-                    FirstMidName="Peggy",
-                    EnrollmentDate=DateTime.Parse("2001-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Norman",
-                    FirstMidName="Laura",
-                    EnrollmentDate=DateTime.Parse("2003-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Student{
-                    LastName="Olivetto",
-                    FirstMidName="Nino",
-                    EnrollmentDate=DateTime.Parse("2005-09-01",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
+                new Student{LastName="Alexander",FirstMidName="Carson",EnrollmentDate=DateTime.Parse("2005-09-01")},
+                new Student{LastName="Alonso",FirstMidName="Meredith",EnrollmentDate=DateTime.Parse("2002-09-01")},
+                new Student{LastName="Anand",FirstMidName="Arturo",EnrollmentDate=DateTime.Parse("2003-09-01")},
+                new Student{LastName="Barzdukas",FirstMidName="Gytis",EnrollmentDate=DateTime.Parse("2002-09-01")},
+                new Student{LastName="Li",FirstMidName="Yan",EnrollmentDate=DateTime.Parse("2002-09-01")},
+                new Student{LastName="Justice",FirstMidName="Peggy",EnrollmentDate=DateTime.Parse("2001-09-01")},
+                new Student{LastName="Norman",FirstMidName="Laura",EnrollmentDate=DateTime.Parse("2003-09-01")},
+                new Student{LastName="Olivetto",FirstMidName="Nino",EnrollmentDate=DateTime.Parse("2005-09-01")},
             };
             students.ForEach(s => context.Students.Add(s));
             context.SaveChanges();
 
             var instructors = new List<Instructor>
             {
-                new Instructor{
-                    LastName="Sánchez",
-                    FirstMidName="Ken",
-                    HireDate=Convert.ToDateTime("2008-10-21",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Duffy",
-                    FirstMidName="Terri",
-                    HireDate=Convert.ToDateTime("2007-11-07",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Tamburello",
-                    FirstMidName="Roberto",
-                    HireDate=Convert.ToDateTime("2007-08-18",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Walters",
-                    FirstMidName="Rob",
-                    HireDate=Convert.ToDateTime("2007-09-11",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Erickson",
-                    FirstMidName="Gail",
-                    HireDate=Convert.ToDateTime("2007-10-13",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Goldberg",
-                    FirstMidName="Jossef",
-                    HireDate=Convert.ToDateTime("2013-09-29",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Gibson",
-                    FirstMidName="Mary",
-                    HireDate=Convert.ToDateTime("2008-10-19",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Williams",
-                    FirstMidName="Jill",
-                    HireDate=Convert.ToDateTime("2008-10-25",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Hamilton",
-                    FirstMidName="James",
-                    HireDate=Convert.ToDateTime("2008-11-10",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Krebs",
-                    FirstMidName="Peter",
-                    HireDate=Convert.ToDateTime("2008-09-07",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Brown",
-                    FirstMidName="Jo",
-                    HireDate=Convert.ToDateTime("2007-12-04",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Gilbert",
-                    FirstMidName="Guy",
-                    HireDate=Convert.ToDateTime("2006-04-06",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="McArthur",
-                    FirstMidName="Mark ",
-                    HireDate=Convert.ToDateTime("2008-10-30",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Simon",
-                    FirstMidName="Britta",
-                    HireDate=Convert.ToDateTime("2008-11-05",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Shoop",
-                    FirstMidName="Margie",
-                    HireDate=Convert.ToDateTime("2008-10-11",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Laszlo",
-                    FirstMidName="Rebecca",
-                    HireDate=Convert.ToDateTime("2008-10-05",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
-                new Instructor{
-                    LastName="Stahl",
-                    FirstMidName="Annik",
-                    HireDate=Convert.ToDateTime("2008-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat)},
+                new Instructor{LastName="Sánchez",FirstMidName="Ken",HireDate=Convert.ToDateTime("2008-10-21")},
+                new Instructor{LastName="Duffy",FirstMidName="Terri",HireDate=Convert.ToDateTime("2007-11-07")},
+                new Instructor{LastName="Tamburello",FirstMidName="Roberto",HireDate=Convert.ToDateTime("2007-08-18")},
+                new Instructor{LastName="Walters",FirstMidName="Rob",HireDate=Convert.ToDateTime("2007-09-11")},
+                new Instructor{LastName="Erickson",FirstMidName="Gail",HireDate=Convert.ToDateTime("2007-10-13")},
+                new Instructor{LastName="Goldberg",FirstMidName="Jossef",HireDate=Convert.ToDateTime("2013-09-29")},
+                new Instructor{LastName="Gibson",FirstMidName="Mary",HireDate=Convert.ToDateTime("2008-10-19")},
+                new Instructor{LastName="Williams",FirstMidName="Jill",HireDate=Convert.ToDateTime("2008-10-25")},
+                new Instructor{LastName="Hamilton",FirstMidName="James",HireDate=Convert.ToDateTime("2008-11-10")},
+                new Instructor{LastName="Krebs",FirstMidName="Peter",HireDate=Convert.ToDateTime("2008-09-07")},
+                new Instructor{LastName="Brown",FirstMidName="Jo",HireDate=Convert.ToDateTime("2007-12-04")},
+                new Instructor{LastName="Gilbert",FirstMidName="Guy",HireDate=Convert.ToDateTime("2006-04-06")},
+                new Instructor{LastName="McArthur",FirstMidName="Mark ",HireDate=Convert.ToDateTime("2008-10-30")},
+                new Instructor{LastName="Simon",FirstMidName="Britta",HireDate=Convert.ToDateTime("2008-11-05")},
+                new Instructor{LastName="Shoop",FirstMidName="Margie",HireDate=Convert.ToDateTime("2008-10-11")},
+                new Instructor{LastName="Laszlo",FirstMidName="Rebecca",HireDate=Convert.ToDateTime("2008-10-05")},
+                new Instructor{LastName="Stahl",FirstMidName="Annik",HireDate=Convert.ToDateTime("2008-09-23")},
             };
             instructors.ForEach(s => context.Instructors.Add(s));
             context.SaveChanges();
 
             var departments = new List<Department>
             {
-                new Department{
-                    Name="Engineering", 
-                    Budget=56421, 
-                    StartDate=Convert.ToDateTime("2007-09-13",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=9},
-                new Department{
-                    Name="Tool Design",
-                    Budget=13212,
-                    StartDate=Convert.ToDateTime("2008-10-28",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=10},
-                new Department{
-                    Name="Sales",
-                    Budget=74232,
-                    StartDate=Convert.ToDateTime("2006-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=11},
-                new Department{
-                    Name="Marketing",
-                    Budget=48761,
-                    StartDate=Convert.ToDateTime("2018-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=12},
-                new Department{
-                    Name="Purchasing",
-                    Budget=62331,
-                    StartDate=Convert.ToDateTime("2014-02-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=13},
-                new Department{
-                    Name="Research and Development",
-                    Budget=45954,
-                    StartDate=Convert.ToDateTime("2008-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=14},
-                new Department{
-                    Name="Production",
-                    Budget=48796,
-                    StartDate=Convert.ToDateTime("2016-01-12",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=15},
-                new Department{
-                    Name="Production Control",
-                    Budget=49743,
-                    StartDate=Convert.ToDateTime("2012-05-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=16},
-                new Department{
-                    Name="Human Resources",
-                    Budget=35286,
-                    StartDate=Convert.ToDateTime("2008-04-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=17},
-                new Department{
-                    Name="Finance",
-                    Budget=47776,
-                    StartDate=Convert.ToDateTime("2008-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=18},
-                new Department{
-                    Name="Information Services",
-                    Budget=42121,
-                    StartDate=Convert.ToDateTime("2008-09-20",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=19},
-                new Department{
-                    Name="Document Control",
-                    Budget=42286,
-                    StartDate=Convert.ToDateTime("2015-09-15",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=20},
-                new Department{
-                    Name="Quality Assurance",
-                    Budget=98576,
-                    StartDate=Convert.ToDateTime("2011-09-15",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=21},
-                new Department{
-                    Name="Facilities and Maintenance",
-                    Budget=52525,
-                    StartDate=Convert.ToDateTime("2009-09-12",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=22},
-                new Department{
-                    Name="Shipping and Receiving",
-                    Budget=44296,
-                    StartDate=Convert.ToDateTime("2008-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=23},
-                new Department{
-                    Name="Executive",
-                    Budget=45286,
-                    StartDate=Convert.ToDateTime("2008-09-23",
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=24},
-                new Department{
-                    Name="Executive Authoritative",
-                    Budget=22222,
-                    StartDate=Convert.ToDateTime("2008-09-01", 
-                        CultureInfo.CurrentCulture.DateTimeFormat), 
-                    InstructorID=25},
+                new Department{Name="Engineering",Budget=56421,StartDate=Convert.ToDateTime("2007-09-13"), InstructorID=9},
+                new Department{Name="Tool Design",Budget=13212,StartDate=Convert.ToDateTime("2008-10-28"), InstructorID=10},
+                new Department{Name="Sales",Budget=74232,StartDate=Convert.ToDateTime("2006-09-23"), InstructorID=11},
+                new Department{Name="Marketing",Budget=48761,StartDate=Convert.ToDateTime("2018-09-23"), InstructorID=12},
+                new Department{Name="Purchasing",Budget=62331,StartDate=Convert.ToDateTime("2014-02-23"), InstructorID=13},
+                new Department{Name="Research and Development",Budget=45954,StartDate=Convert.ToDateTime("2008-09-23"), InstructorID=14},
+                new Department{Name="Production",Budget=48796,StartDate=Convert.ToDateTime("2016-01-12"), InstructorID=15},
+                new Department{Name="Production Control",Budget=49743,StartDate=Convert.ToDateTime("2012-05-23"), InstructorID=16},
+                new Department{Name="Human Resources",Budget=35286,StartDate=Convert.ToDateTime("2008-04-23"), InstructorID=17},
+                new Department{Name="Finance",Budget=47776,StartDate=Convert.ToDateTime("2008-09-23"), InstructorID=18},
+                new Department{Name="Information Services",Budget=42121,StartDate=Convert.ToDateTime("2008-09-20"), InstructorID=19},
+                new Department{Name="Document Control",Budget=42286,StartDate=Convert.ToDateTime("2015-09-15"), InstructorID=20},
+                new Department{Name="Quality Assurance",Budget=98576,StartDate=Convert.ToDateTime("2011-09-15"), InstructorID=21},
+                new Department{Name="Facilities and Maintenance",Budget=52525,StartDate=Convert.ToDateTime("2009-09-12"), InstructorID=22},
+                new Department{Name="Shipping and Receiving",Budget=44296,StartDate=Convert.ToDateTime("2008-09-23"), InstructorID=23},
+                new Department{Name="Executive",Budget=45286,StartDate=Convert.ToDateTime("2008-09-23"), InstructorID=24},
+                new Department{Name="Executive Authoritative",Budget=22222,StartDate=Convert.ToDateTime("2008-09-01"), InstructorID=25},
             };
             departments.ForEach(s => context.Departments.Add(s));
             context.SaveChanges();

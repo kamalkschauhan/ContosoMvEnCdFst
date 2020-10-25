@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -15,19 +14,17 @@ namespace ContosoUniversity.Controllers
 {
     public class InstructorController : Controller
     {
-        private readonly SchoolContext db = new SchoolContext();
+        private SchoolContext db = new SchoolContext();
 
         // GET: Instructor
-        [HttpGet]
         public ActionResult Index(int? id, int? courseID)
         {
-            var viewModel = new InstructorIndexData
-            {
-                Instructors = db.Instructors
+            var viewModel = new InstructorIndexData();
+
+            viewModel.Instructors = db.Instructors
                 .Include(i => i.OfficeAssignment)
                 .Include(i => i.Courses.Select(c => c.Department))
-                .OrderBy(i => i.LastName)
-            };
+                .OrderBy(i => i.LastName);
 
             if (id != null)
             {
@@ -58,7 +55,6 @@ namespace ContosoUniversity.Controllers
 
 
         // GET: Instructor/Details/5
-        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -73,13 +69,10 @@ namespace ContosoUniversity.Controllers
             return View(instructor);
         }
 
-        [HttpGet]
         public ActionResult Create()
         {
-            var instructor = new Instructor
-            {
-                Courses = new List<Course>()
-            };
+            var instructor = new Instructor();
+            instructor.Courses = new List<Course>();
             PopulateAssignedCourseData(instructor);
             return View();
         }
@@ -93,8 +86,7 @@ namespace ContosoUniversity.Controllers
                 instructor.Courses = new List<Course>();
                 foreach (var course in selectedCourses)
                 {
-                    var courseToAdd = db.Courses.Find(int.Parse(course, 
-                        CultureInfo.CurrentCulture.NumberFormat));
+                    var courseToAdd = db.Courses.Find(int.Parse(course));
                     instructor.Courses.Add(courseToAdd);
                 }
             }
@@ -108,8 +100,8 @@ namespace ContosoUniversity.Controllers
             return View(instructor);
         }
 
+
         // GET: Instructor/Edit/5
-        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -167,7 +159,7 @@ namespace ContosoUniversity.Controllers
             {
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(instructorToUpdate.OfficeAssignment.Location))
+                    if (String.IsNullOrWhiteSpace(instructorToUpdate.OfficeAssignment.Location))
                     {
                         instructorToUpdate.OfficeAssignment = null;
                     }
@@ -187,7 +179,6 @@ namespace ContosoUniversity.Controllers
             PopulateAssignedCourseData(instructorToUpdate);
             return View(instructorToUpdate);
         }
-
         private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
         {
             if (selectedCourses == null)
@@ -201,7 +192,7 @@ namespace ContosoUniversity.Controllers
                 (instructorToUpdate.Courses.Select(c => c.CourseID));
             foreach (var course in db.Courses)
             {
-                if (selectedCoursesHS.Contains(course.CourseID.ToString(CultureInfo.CurrentCulture.NumberFormat)))
+                if (selectedCoursesHS.Contains(course.CourseID.ToString()))
                 {
                     if (!instructorCourses.Contains(course.CourseID))
                     {
@@ -218,8 +209,9 @@ namespace ContosoUniversity.Controllers
             }
         }
 
+
+
         // GET: Instructor/Delete/5
-        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)

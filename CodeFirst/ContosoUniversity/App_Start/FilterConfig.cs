@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace ContosoUniversity
 {
-    public static class FilterConfig
+    public class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
