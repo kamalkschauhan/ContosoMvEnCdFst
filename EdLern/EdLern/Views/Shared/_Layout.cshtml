@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - EdLern</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+    // Check if the localStorage object exists
+        if (localStorage) {
+            // Store data
+            localStorage.setItem("first_name", "Peter");
+
+            // Retrieve data
+            //alert("Hi, " + localStorage.getItem("first_name"));
+        } else {
+            alert("Sorry, your browser do not support local storage.");
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("EdLern", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Classes", "Index", "Classes")</li>
+                    <li>@Html.ActionLink("Consultations", "Index", "Consultations")</li>
+                    <li>@Html.ActionLink("Resources", "Index", "Resources")</li>
+                    <li>@Html.ActionLink("Programs", "Index", "Programs")</li>
+                    <li>@Html.ActionLink("Blogs", "Index", "Blogs")</li>
+                    <li>@Html.ActionLink("Students", "Index", "Student")</li>
+                    <li>@Html.ActionLink("Courses", "Index", "Course")</li>
+                    <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                    <li>@Html.ActionLink("Departments", "Index", "Department")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+            </div>
+            //INITIATE FREE TEXT SEARCH USING KNOCK-OUT
+            <div class="navbar-collapse collapse">
+                @Html.TextBox("txtSearch")
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - EdLern</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

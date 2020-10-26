@@ -1,0 +1,27 @@
+﻿@model EdLern.Models.CityList
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>EdLern</h1>
+</div>
+<div class="form-horizontal">
+    <h4>Select Preferred work location</h4>
+    @using (Html.BeginForm())
+    {
+        for (int i = 0; i < Model.Cities.Count; i++)
+        {
+
+            @Html.CheckBoxFor(m => Model.Cities[i].IsChecked)
+            @Model.Cities[i].Text
+            @Html.HiddenFor(m => Model.Cities[i].Value)
+            @Html.HiddenFor(m => Model.Cities[i].Text)<br />
+
+        }
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+        @ViewBag.Loc
+    }
+</div>
